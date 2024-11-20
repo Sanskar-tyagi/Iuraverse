@@ -5,6 +5,7 @@ import CaseAndService from "./pages/CaseAndService";
 import ActivityFeed from "./components/CaseManagement/ActivityFeed";
 import Support from "./pages/Support";
 import CMS from "./pages/CMS";
+import UserManagement from "./pages/UserManagement";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "/cms",
         element: <CMS />,
+      },
+      {
+        path: "/user-management",
+        element: <UserManagement />,
       },
       {
         path: "*",

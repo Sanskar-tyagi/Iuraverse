@@ -15,7 +15,7 @@ export const Column = ({
   refetch,
   columnDef,
 }: {
-  refetch: () => void;
+  refetch?: () => void;
   columnDef: any;
 }) => {
   const columns: ColumnDef<any>[] = [

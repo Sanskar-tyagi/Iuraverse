@@ -26,6 +26,7 @@ const CaseForm = ({
   setData: Dispatch<SetStateAction<{ [key: string]: any }>>;
 }) => {
   const hiddenFileInput = useRef<HTMLInputElement>(null);
+
   const handleInput = (
     e:
       | string[]
@@ -50,6 +51,7 @@ const CaseForm = ({
     }
   };
   const User = UserStore((state) => state.user);
+  const userRole = UserStore((state) => state.user?.userRole);
   const [removingFile, setRemovingFile] = useState<string | null>(null);
   const [_isUploadingMedia, setIsUploadingMedia] = useState(false);
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -146,8 +148,8 @@ const CaseForm = ({
             onChange={(e) => {
               handleInput(e, "ClientId");
             }}
-            value={data["ClientId"]}
-            type="number"
+            value={userRole === "CUSTOMER" ? User?.userId : data["ClientId"]}
+            disabled={userRole === "CUSTOMER" ? true : false}
             id="client-id"
           />
         </div>
@@ -158,6 +160,8 @@ const CaseForm = ({
               handleInput(e, "ClientName");
             }}
             type="text"
+            value={userRole === "CUSTOMER" ? User?.userName : data["ClientId"]}
+            disabled={userRole === "CUSTOMER" ? true : false}
             id="client-name"
           />
         </div>

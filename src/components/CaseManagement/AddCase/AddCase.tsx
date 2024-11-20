@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useAddCase } from "@/hooks/useAddCase";
 import { toast } from "@/hooks/use-toast";
+import { UserStore } from "@/pages/HomeLayout/UserStore";
 
 export const AddCase = ({
   total,
@@ -16,8 +17,13 @@ export const AddCase = ({
   setSelectedTab: any;
   refetch: any;
 }) => {
+  const User = UserStore((state) => state.user);
   const [data, setData] = useState<{ [key: string]: any }>({
     CaseID: parseInt(total + 1),
+    ClientId: User?.userRole === "CUSTOMER" ? User?.userId : "",
+    ClientName: User?.userRole === "CUSTOMER" ? User?.userName : "",
+    CreatedBy: User?.userId,
+    CreatedOn: new Date().toISOString(),
   });
   const [loading, setLoading] = useState<boolean>(false);
   return (
@@ -104,9 +110,6 @@ const checkError = (data: any) => {
 
   if (!data.CaseType) errors.push("CaseType is required");
   if (!data.CaseTitle) errors.push("CaseTitle is required");
-  if (!/^\d{6}$/.test(String(data.ClientId))) {
-    errors.push("ClientId must be a 6-digit number");
-  }
   if (!data.ClientName) errors.push("ClientName is required");
   if (!data.CreatedOn) errors.push("CreatedOn is required");
   if (!data.EstimatedEndDate) errors.push("EstimatedEndDate is required");

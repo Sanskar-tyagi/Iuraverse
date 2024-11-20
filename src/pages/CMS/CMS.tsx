@@ -1,6 +1,7 @@
 import Blog from "@/atoms/CMS/Blog";
 import Blogs from "@/components/CMS/Blogs";
 import CreateBlog from "@/components/CMS/CreateBlog";
+import Terms from "@/components/TnC/Terms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -41,7 +42,9 @@ export const CMS = () => {
               <TabsContent value="blogs">
                 <Blogs setScreen={setScreen} setBlog={setBlog} />
               </TabsContent>
-              <TabsContent value="tnc">Change your password here.</TabsContent>
+              <TabsContent value="tnc">
+                <Terms />
+              </TabsContent>
               <TabsContent value="faq">
                 <section className="dark:bg-gray-100 dark:text-gray-800">
                   <div className="flex items-center justify-between py-4 bg-white px-2">

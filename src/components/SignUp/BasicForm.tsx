@@ -209,7 +209,7 @@ export default function RegistrationForm({
                   control={form.control}
                   name="email"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col items-start">
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input placeholder="email" type="email" {...field} />
@@ -221,76 +221,84 @@ export default function RegistrationForm({
                 />
               </div>
 
-              <FormField
-                control={form.control}
-                name="officeAddress"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Office Address</FormLabel>
-                    <FormControl>
-                      <Input placeholder="" type="text" {...field} />
-                    </FormControl>
+              <div className="grid grid-cols-5 gap-4">
+                <div className="col-span-4">
+                  <FormField
+                    control={form.control}
+                    name="officeAddress"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Office Address</FormLabel>
+                        <FormControl>
+                          <Input placeholder="" type="text" {...field} />
+                        </FormControl>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
+                  control={form.control}
+                  name="officeAddressPIN"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pin Code</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="pin code"
+                          type="number"
+                          {...field}
+                        />
+                      </FormControl>
 
-              <FormField
-                control={form.control}
-                name="officeAddressPIN"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Pin Code</FormLabel>
-                    <FormControl>
-                      <Input placeholder="pin code" type="number" {...field} />
-                    </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-4 gap-4">
+                <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>City</FormLabel>
+                      <FormControl>
+                        <Input placeholder="" type="" {...field} />
+                      </FormControl>
 
-              <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>City</FormLabel>
-                    <FormControl>
-                      <Input placeholder="" type="" {...field} />
-                    </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="country"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Select Country</FormLabel>
+                      <FormControl>
+                        <LocationSelector
+                          onCountryChange={(country) => {
+                            setCountryName(country?.name || "");
+                            form.setValue(field.name, country?.name || "");
+                          }}
+                          onStateChange={(state) => {
+                            setStateName(state?.name || "");
+                            form.setValue(field.name, countryName || "");
+                            form.setValue("state", state?.name || "");
+                          }}
+                        />
+                      </FormControl>
 
-              <FormField
-                control={form.control}
-                name="country"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Select Country</FormLabel>
-                    <FormControl>
-                      <LocationSelector
-                        onCountryChange={(country) => {
-                          setCountryName(country?.name || "");
-                          form.setValue(field.name, country?.name || "");
-                        }}
-                        onStateChange={(state) => {
-                          setStateName(state?.name || "");
-                          form.setValue(field.name, countryName || "");
-                          form.setValue("state", state?.name || "");
-                        }}
-                      />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <Button type="submit">Save and Next</Button>
             </form>
           </Form>

@@ -30,6 +30,7 @@ export const Sidebar = () => {
       title: "User Management",
       icon: <Users className="h-5 w-5" />,
       link: "/user-management",
+      isHidden: User !== "ADMIN",
     },
     {
       title: "Support",
@@ -37,19 +38,9 @@ export const Sidebar = () => {
       link: "/support",
     },
     {
-      title: "Team Management",
-      icon: <Group className="h-5 w-5" />,
-      link: "/team-management",
-    },
-    {
       title: User === "CUSTOMER" ? "EDUCATE" : "CMS",
       icon: <Group className="h-5 w-5" />,
       link: "/cms",
-    },
-    {
-      title: "Analytics",
-      icon: <LineChart className="h-5 w-5" />,
-      link: "/analytics",
     },
   ];
   return (
@@ -69,7 +60,7 @@ export const Sidebar = () => {
                   pathname === item.link
                     ? "bg-primary"
                     : " transition-all hover:text-primary"
-                }`}
+                } ${item.isHidden ? "hidden" : ""}`}
                 onClick={() => navigate(item.link)}
               >
                 {item.icon}

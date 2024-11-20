@@ -9,7 +9,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetCases } from "@/hooks/useGetCases";
 import AddCase from "@/components/CaseManagement/AddCase";
 import ApprovedCase from "@/components/CaseManagement/ApprovedCase/ApprovedCase";
@@ -17,13 +17,14 @@ import ViewCase from "@/components/CaseManagement/ViewCase";
 import RejectCaseTable from "@/components/CaseManagement/RejectCase/RejectCaseTable";
 import { CardTitle, Card } from "@/components/ui/card";
 import ReminderTable from "@/components/CaseManagement/Reminder/ReminderTable";
-import { fetchUserAttributes } from "aws-amplify/auth";
 import AllCases from "@/components/CaseManagement/AllCases/AllCases";
 import { UserStore } from "../HomeLayout/UserStore";
 import LoaderMain from "@/atoms/Loaders/LoaderMain";
+import ApprovalPending from "@/components/CaseManagement/ApprovalPending";
 const AdminView = ({ role }: { role: string }) => {
   const [SelectedTab, setSelectedTab] = useState(0);
   const { data = [], isLoading, refetch } = useGetCases();
+
   const [selectedCase, setSelectedCase] = useState<any>("");
   if (isLoading || !role) {
     return <div>Loading...</div>;
@@ -186,6 +187,7 @@ export const CaseAndService = () => {
 const ClientView = () => {
   const [SelectedTab, setSelectedTab] = useState(0);
   const User = UserStore((state) => state.user);
+  const { data: totalCases = [] } = useGetCases();
   const { data = [], isLoading, refetch } = useGetCases(User?.userId);
   return (
     <Card>
@@ -286,9 +288,11 @@ const ClientView = () => {
                 refetch={() => {}}
                 data={data.data}
               />
+            ) : SelectedTab === 1 ? (
+              <ApprovalPending cases={data.data} refetch={() => {}} />
             ) : SelectedTab === 5 ? (
               <AddCase
-                total={data.page.total}
+                total={totalCases.page.total}
                 setSelectedTab={setSelectedTab}
                 refetch={refetch}
               />

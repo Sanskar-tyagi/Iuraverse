@@ -11,3 +11,7 @@ export const useGetBlog = async (id: string) => {
   const url = `/cms/${id}`;
   return await getAxios().get(url);
 };
+export const useGetTnc = async () => {
+  const url = `/cms?limit=20&offset=0&type=TNC`;
+  return await getAxios().get(url);
+};
